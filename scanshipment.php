@@ -53,32 +53,32 @@ if ($_SESSION['role'] == 0 || $_SESSION['role'] == 1) {
             <h5 style="font-weight: 600;"> Fill the Details of the Recieved Product Shipment </h5>
             <form id="form2" autocomplete="off">
               <div class="formitem">
-                <label type="text" style="text-align:left;" class="formlabel"> Received Product ID: </label>
+                <label type="text" style="text-align:left; font-weight: 400;" class="formlabel"><b> Received Product ID: </b></label>
                 <input type="text" class="forminput" id="prodid" onkeypress="isInputNumber(event)" required>
 
                 <label class=qrcode-text-btn style="width:4%;display:none;">
                   <input type=file accept="image/*" id="selectedFile" style="display:none" capture=environment onchange="openQRCamera(this);" tabindex=-1>
                 </label>
                 <button class="qrbutton2" onclick="document.getElementById('selectedFile').click();" style="margin-bottom: 5px;margin-top: 5px;">
-                  <i class='fa fa-qrcode'></i> Scan QR
+                  <i class='fa fa-qrcode'></i><b> Scan QR </b>
                 </button>
               </div>
 
               <div class="formitem">
-                <label type="text" style="text-align:left;" class="formlabel"> Product Scanner Name: </label>
+                <label type="text" style="text-align:left; font-weight: 400;" class="formlabel"><b> Product Scanner Name: </b></label>
                 <input type="text" class="forminput" id="prodname" value="<?php echo $_SESSION['username']; ?>" readonly required>
 
-                <label style="text-align: left; margin-top: 20px; font-weight: 400px;" type="text" class="formlabel"> Expiry Date (15 Days from Manufacturing Date): </label>
+                <label style="text-align: left; margin-top: 20px; font-weight: 400;" type="text" class="formlabel"><b> Expiry Date (15 Days from Manufacturing Date): </b></label>
                 <input type="text" class="forminput" id="exp_date" value='<?php echo $expiryDate; ?>' readonly required>
 
-                <label style="margin-top: 20px; text-align:left;" type="text" class="formlabel"> Recieved Date: </label>
+                <label style="margin-top: 20px; text-align:left; font-weight: 400;" type="text" class="formlabel"><b> Recieved Date: </b></label>
                 <input type="text" class="forminput" id="recvdate" value="<?php echo $recvdate; ?>" readonly required>
 
-                <label style="margin-top: 20px; text-align:left;" type="text" class="formlabel"> <b>Product Scanner Location: </b></label>
+                <label style="margin-top: 20px; text-align:left; font-weight: 400;" type="text" class="formlabel"> <b>Product Scanner Location: </b></label>
                 <input type="text" class="forminput" id="prodlocation" readonly required>
               </div>
 
-              <button class="formbtn" id="mansub" type="submit">Update Product Information</button>
+              <button class="formbtn" id="mansub" type="submit"><b> Update Product Shipment </b></button>
             </form>
           </div>
       </center>

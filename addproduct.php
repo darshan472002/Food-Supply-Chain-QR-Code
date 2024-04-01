@@ -53,21 +53,21 @@ if ($_SESSION['role'] == 0) {
           <h5 style="font-weight: 600;"> Please Fill Product Details </h5>
           <form id="form1" autocomplete="off">
             <div class="formitem">
-              <label style="text-align: left; font-weight: 400px;" type="text" class="formlabel"> Product Name: </label>
+              <label style="text-align: left; font-weight: 400;" type="text" class="formlabel"><b> Product Name: </b></label>
               <input type="text" class="forminput" id="prodname" required>
 
-              <label style="text-align: left; margin-top: 20px; font-weight: 400px;" type="text" class="formlabel"> Manufacturer Name: </label>
+              <label style="text-align: left; margin-top: 20px; font-weight: 400;" type="text" class="formlabel"><b> Manufacturer Name: </b></label>
               <input type="text" class="forminput" id="man_name" value='<?php echo $_SESSION['username']; ?>' readonly required>
 
-              <label style="text-align: left; margin-top: 20px; font-weight: 400px;" type="text" class="formlabel"> Manufacturing Date and Time: </label>
+              <label style="text-align: left; margin-top: 20px; font-weight: 400;" type="text" class="formlabel"><b> Manufacturing Date and Time: </b></label>
               <input type="text" class="forminput" id="man_date" value='<?php echo $currentDateTime; ?>' readonly required>
 
-              <label style="text-align: left; margin-top: 20px; font-weight: 400px;" type="text" class="formlabel"> Expiry Date (15 Days from Manufacturing Date): </label>
+              <label style="text-align: left; margin-top: 20px; font-weight: 400;" type="text" class="formlabel"><b> Expiry Date (15 Days from Manufacturing Date): </b></label>
               <input type="text" class="forminput" id="exp_date" value='<?php echo $expiryDate; ?>' readonly required>
 
               <input type="hidden" class="forminput" id="user" value=<?php echo $_SESSION['username']; ?> required>
             </div>
-            <button class="formbtn" id="mansub" type="submit">Register Product</button>
+            <button class="formbtn" id="mansub" type="submit"><b> Register Product </b></button>
           </form>
           <!-- </div> -->
         </div>

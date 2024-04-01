@@ -18,6 +18,7 @@ session_start();
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/mdbmin.css" rel="stylesheet">
   <link href="css/mdb.min.css" rel="stylesheet">
+
   <link href="css/style.css" rel="stylesheet">
 
 </head>
@@ -51,7 +52,7 @@ if (isset($_SESSION['role'])) {
           </form>
 
           <button class="qrbutton" onclick="document.getElementById('selectedFile').click();">
-            <i class='fa fa-qrcode'></i> Scan QR
+            <i class='fa fa-qrcode'></i><b> Scan QR </b>
           </button>
 
           <br><br>
