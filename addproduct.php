@@ -2,6 +2,7 @@
 session_start();
 $color = "navbar-light orange darken-4";
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +24,7 @@ $color = "navbar-light orange darken-4";
   <link href="css/style.css" rel="stylesheet">
 
 </head>
+
 <?php
 if ($_SESSION['role'] == 0) {
   date_default_timezone_set('Asia/Kolkata');
@@ -30,7 +32,7 @@ if ($_SESSION['role'] == 0) {
   $currentDateTime = date("d F Y - g:i A");
   $date = date_create($manufactureDate);
   date_add($date, date_interval_create_from_date_string('15 days'));
-  $expiryDate = date_format($date, 'd F Y');
+  $expiryDate = date_format($date, "d F Y");
 ?>
 
   <body class="violetgradient">
@@ -51,19 +53,20 @@ if ($_SESSION['role'] == 0) {
         <div class="mycardstyle">
           <!-- <div class="greyarea"> -->
           <h5 style="font-weight: 600;"> Please Fill Product Details </h5>
-          <form id="form1" autocomplete="off">
+
+          <form id="form1" autocomplete="off" method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
             <div class="formitem">
               <label style="text-align: left; font-weight: 400;" type="text" class="formlabel"><b> Product Name: </b></label>
-              <input type="text" class="forminput" id="prodname" required>
+              <input type="text" class="forminput" id="prodname" name="prodname" required>
 
               <label style="text-align: left; margin-top: 20px; font-weight: 400;" type="text" class="formlabel"><b> Manufacturer Name: </b></label>
               <input type="text" class="forminput" id="man_name" value='<?php echo $_SESSION['username']; ?>' readonly required>
 
               <label style="text-align: left; margin-top: 20px; font-weight: 400;" type="text" class="formlabel"><b> Manufacturing Date and Time: </b></label>
-              <input type="text" class="forminput" id="man_date" value='<?php echo $currentDateTime; ?>' readonly required>
+              <input type="text" class="forminput" id="man_date" name="man_date" value='<?php echo $currentDateTime; ?>' readonly required>
 
               <label style="text-align: left; margin-top: 20px; font-weight: 400;" type="text" class="formlabel"><b> Expiry Date (15 Days from Manufacturing Date): </b></label>
-              <input type="text" class="forminput" id="exp_date" value='<?php echo $expiryDate; ?>' readonly required>
+              <input type="text" class="forminput" id="exp_date" name="exp_date" value='<?php echo $expiryDate; ?>' readonly required>
 
               <input type="hidden" class="forminput" id="user" value=<?php echo $_SESSION['username']; ?> required>
             </div>
@@ -159,20 +162,51 @@ if ($_SESSION['role'] == 0) {
         $(".customalert").hide("fast", "linear");
       });
 
-
+      var qr;
       $('#form1').on('submit', function(event) {
         event.preventDefault(); // to prevent page reload when form is submitted
-        prodname = "<b>Product Name: </b>" + $('#prodname').val();
-        username = $('#user').val();
-        prodname = prodname + "<br>" + "\n<b>Product Registered By: </b>" + username;
-        manufactureDate = "<br><b>Manufacturer Date: </b>" + $('#man_date').val();
-        expiryDate = "<br><b>Expiry Date: </b>" + $('#exp_date').val();
+        var prodname = "<b>Product Name: </b>" + $('#prodname').val();
+        var username = $('#user').val();
+        prodname = prodname + "<br>" + "," + "\n<b>Product Registered By: </b>" + username;
+        var manufactureDate = "<br><b>Manufacturer Date: </b>" + $('#man_date').val();
+        var expiryDate = "<br><b>Expiry Date: </b>" + $('#exp_date').val();
 
         console.log("Product Name : " + prodname);
         console.log("Registered By : " + prodname);
         console.log("Manufacture Date : " + manufactureDate);
         console.log("Expiry Date : " + expiryDate);
 
+        // Function to generate QR code and set its value
+        function generateQRAndStoreData() {
+          // Set QR code value to formatted string
+          qr.set({
+            value: formattedDetails
+          });
+
+          // Convert the QR code image data to Base64
+          var imageData = qr.toDataURL();
+
+          // Make AJAX request
+          $.ajax({
+            type: 'POST',
+            url: "save_qr.php",
+            data: {
+              prodname: prodname,
+              username: username,
+              manufactureDate: manufactureDate,
+              expiryDate: expiryDate,
+              imageData: imageData
+            },
+            success: function(response) {
+              // Handle successful response
+              console.log(response); // Display success message
+            },
+            error: function(xhr, status, error) {
+              // Handle errors
+              console.error(xhr.responseText);
+            }
+          });
+        }
 
         // Function to remove HTML tags from a string
         function stripHtmlTags(html) {
@@ -180,6 +214,7 @@ if ($_SESSION['role'] == 0) {
           return doc.body.textContent || "";
         }
 
+        var formattedDetails = '';
         // Then use the function inside your promise chain
         web3.eth.getAccounts().then(async function(accounts) {
           var receipt = await contract.methods.newItem(prodname, manufactureDate, expiryDate).send({
@@ -203,13 +238,13 @@ if ($_SESSION['role'] == 0) {
               var expirydate = stripHtmlTags(productDetails.ExpiryDate);
 
               // Create a formatted string with the values of Product Name, Manufacturer Date, and Expiry Date
-              var formattedDetails = `ProductId: ${productDetails.ProductId}, \n${productName}, \n${manufacturedate}, \n${expirydate}`;
+              formattedDetails = `ProductId: ${productDetails.ProductId}, \n${productName}, \n${manufacturedate}, \n${expirydate}`;
 
               // Log the formatted product details
-              console.log("Formatted Product Details:", formattedDetails);
+              console.log(formattedDetails);
 
-              // Set QR code value to formatted string
-              qr.value = formattedDetails;
+              // Call function to generate QR code and store data
+              generateQRAndStoreData();
 
               // Display success message
               var msg = "<h5 style='color: #53D769'><b>Item Added Successfully</b></h5><br><p>Product ID: " + receipt.events.Added.returnValues[0] + "</p>";
@@ -264,12 +299,11 @@ if ($_SESSION['role'] == 0) {
       }
 
       (function() {
-        var qr = window.qr = new QRious({
+        qr = window.qr = new QRious({
           element: document.getElementById('qrious'),
           size: 200,
-          value: '0'
+          value: ''
         });
-
 
       })();
 
