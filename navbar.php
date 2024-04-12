@@ -38,9 +38,12 @@
       <li class="nav-item">
         <a class="nav-link" id="aboutbtn"> About </a>
       </li>
+
       <li class="nav-item">
+        <a class="nav-link" href="fetch_qr.php"> QR Codes </a>
       </li>
     </ul>
+
     <a id="accountAddress" style="font-weight: 400; color:red;"></a>
 
     <form class="d-flex">
