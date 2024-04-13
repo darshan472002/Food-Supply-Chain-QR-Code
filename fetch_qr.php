@@ -11,9 +11,9 @@ if (!isset($_SESSION['role'])) {
     exit();
 }
 
-    // Fetch QR code image paths and product names from the products table for the current user
-    $sql = "SELECT qr_code_image, product_name FROM products";
-    $result = $conn->query($sql);
+// Fetch QR code image paths and product names from the products table for the current user
+$sql = "SELECT qr_code_image, product_name FROM products";
+$result = $conn->query($sql);
 
 // Fetch QR code image paths and product names into an array
 $qrCodeData = [];
@@ -105,7 +105,7 @@ mysqli_close($conn);
     <script src="web3.min.js"></script>
 
     <!-- QR Code Library-->
-    <script src="./dist/qrious.js"></script>
+    <script src="./QRious/dist/qrious.js"></script>
 
     <!-- QR Code Reader -->
     <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>

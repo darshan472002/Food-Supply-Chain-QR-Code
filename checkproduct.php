@@ -86,7 +86,7 @@ if (isset($_SESSION['role'])) {
   <script type="text/javascript" src="web3.min.js"></script>
 
   <!-- QR Code Library-->
-  <script src="./dist/qrious.js"></script>
+  <script src="./QRious/dist/qrious.js"></script>
 
   <!-- QR Code Reader -->
   <script src="https://rawgit.com/sitepoint-editors/jsqrcode/master/src/qr_packed.js"></script>
