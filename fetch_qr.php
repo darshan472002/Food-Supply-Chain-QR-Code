@@ -82,7 +82,7 @@ mysqli_close($conn);
                     ?>
                     <img src="<?php echo $imageSrc; ?>" alt="QR Code">
                     <p style="font-weight: 700;"><?php echo $data['product_name']; ?></p>
-                    <a type="button" class="btn btn-primary" href="<?php echo $imageSrc; ?>" download="<?php echo $data['product_name']; ?>.png"><i class="fas fa-download"></i> Download QR Code</a>
+                    <a type="button" class="btn btn-primary" href="<?php echo $imageSrc; ?>" download="<?php echo $data['product_name']; ?>.png"><i class="fas fa-download"></i> QR Code</a>
                 </div>
             <?php endforeach; ?>
         </div>
