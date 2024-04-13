@@ -11,9 +11,9 @@ if (!isset($_SESSION['role'])) {
     exit();
 }
 
-// Fetch QR code image paths and product names from the products table for the current user
-$sql = "SELECT qr_code_image, product_name FROM products WHERE username = '{$_SESSION['username']}'";
-$result = mysqli_query($conn, $sql);
+    // Fetch QR code image paths and product names from the products table for the current user
+    $sql = "SELECT qr_code_image, product_name FROM products";
+    $result = $conn->query($sql);
 
 // Fetch QR code image paths and product names into an array
 $qrCodeData = [];
