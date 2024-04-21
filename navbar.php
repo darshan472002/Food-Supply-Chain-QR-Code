@@ -42,8 +42,12 @@
       <li class="nav-item">
         <a class="nav-link" href="fetch_qr.php"> QR Codes </a>
       </li>
+
     </ul>
 
+    <div class="form-inline my-2 my-lg-0">
+      <div class="mr-sm-3" style="font-weight: 500;"><?php echo $_SESSION['username']; ?></div>
+    </div>
     <a id="accountAddress" style="font-weight: 400; color:red;"></a>
 
     <form class="d-flex">
