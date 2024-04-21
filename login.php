@@ -85,9 +85,6 @@ if (isset($_POST['loginsubmit'])) {
                 <label type="text" class="formlabel" style="margin-top: 10px; text-align:left;font-weight: 400;"> Password: </label>
                 <input type="password" class="forminput" value="<?php echo $_POST['pw']; ?>" name="pw" id="pw" onkeypress="isNotChar(event)" required>
 
-                <input type="checkbox" id="rememberMe" name="rememberMe">
-                <label for="rememberMe">Remember Me</label>
-
                 <button class="formbtn" name="loginsubmit" type="submit">Login</button>
 
                 <br>
